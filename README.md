@@ -21,8 +21,8 @@
     - Konfiguration mittels environment variablen. Beispiel kann hier gefunden werden: ``` docker-compose;yml ```
 ## Startup
 ### Docker-Compose
-1. Terminal diesem Ordner öffnen.
-2. ``` docker-compose up --build ``` ausführen
+1. Terminal im Ordner ``` wortfrequenzanalyse-backend ``` öffnen und ``` ./gradlew build ``` ausführen.
+2. ``` docker-compose up --build ``` ausführen in diesem Ordner ausführen
 
 ### Manuell (Node v22, Angular CLI, Java 17 werden vom System erwartet)
 1. MariaDB lokal installieren, root passwort vergeben und Datenbank mit Namen ``` wortfrequenzanalyse ``` erstellen
