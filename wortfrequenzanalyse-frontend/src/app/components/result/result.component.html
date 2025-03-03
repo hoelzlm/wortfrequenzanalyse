@@ -1,0 +1,8 @@
+<div class="mx-auto flex flex-col w-xl gap-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5  items-start">
+
+    <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page"> Zurück </a>
+
+    <ul>
+        <li *ngFor="let item of (analyseResult$ | async);" class="hover:bg-slate-50" ><p class="p-4 text-sm">Wort: {{item.word}}, Häufigkeit:{{item.count}}</p></li>
+    </ul>
+</div>

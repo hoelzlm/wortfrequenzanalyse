@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: 'wortfrequenzanalyse-frontend'
+      dockerfile: Dockerfile
+    container_name: wfa-frontend
+    depends_on:
+      - backend
+    ports:
+      - 4200:4200    
+
+  backend:
+    build:
+      context: 'wortfrequenzanalyse-backend'
+      dockerfile: Dockerfile
+    container_name: 'wfa-backend'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://host.docker.internal:3306/wortfrequenzanalyse
+      - SPRING_DATASOURCE_PASSWORD=toor
+      - SPRING_DATASOURCE_USERNAME=root
+    ports:
+      - 8080:8080
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: 'mariadb:latest'
+    container_name: mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=toor
+      - MARIADB_DATABASE=wortfrequenzanalyse
+    ports:
+      - 3306:3306
