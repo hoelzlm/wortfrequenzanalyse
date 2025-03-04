@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -19,6 +21,19 @@ public class WordFrequentAnalyzeService {
     DatabaseRepository repository;
 
     private static final Logger log = LoggerFactory.getLogger(WordFrequentAnalyzeService.class);
+
+    /**
+     * Adds time to fileName to generate unique fileName on Database
+     * @param fileName original fileName
+     * @return new fileName with date (splittable by _)
+     */
+    private String generateUniqueFileName(String fileName) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String formattedNow = now.format(formatter);
+
+        return String.format("%s_%s", formattedNow, fileName);
+    }
 
     /**
      * converts map to Wortfrequenz objects and stores them into database
@@ -49,10 +64,11 @@ public class WordFrequentAnalyzeService {
     /**
      * Analyzes given text file and calculates how often a word is in that file. Stores the result in the database
      * @param file a plain text file
+     * @return returns fileName for later use
      * @throws IOException is thrown when it is not possible to convert the content of the file to string
      */
-    public void analyzeFile(MultipartFile file) throws IOException{
-        String fileName = file.getOriginalFilename();
+    public String analyzeFile(MultipartFile file) throws IOException{
+        String fileName = this.generateUniqueFileName(file.getOriginalFilename());
         Map<String, Integer> resultMap = new HashMap<>();
 
         byte[] contentBytes = file.getBytes();
@@ -69,6 +85,7 @@ public class WordFrequentAnalyzeService {
 
         //store tokens as new wortfrequenz object
         this.storeWortfrequenz(resultMap, fileName);
+        return fileName;
     }
 
 }

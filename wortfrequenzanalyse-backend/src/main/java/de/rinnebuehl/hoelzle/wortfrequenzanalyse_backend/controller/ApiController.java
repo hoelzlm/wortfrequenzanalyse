@@ -28,10 +28,8 @@ public class ApiController {
 
     @PostMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file) {
-        String fileName = file.getOriginalFilename();
-
         try {
-            this.wordFrequentAnalyzeService.analyzeFile(file);
+            String fileName = this.wordFrequentAnalyzeService.analyzeFile(file);
             return "{\"status\": \"OK\", \"message\": \""+ fileName +" \"}";
         } catch (IOException e) {
             log.error(e.getMessage());
