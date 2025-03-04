@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Wortfrequenz } from '../../models/wortfrequenz.model';
-import { AnalyseApiServiceService } from '../../services/analyse-api-service.service';
+import { AnalyseApiService } from '../../services/analyse-api.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,7 +15,7 @@ export class ResultComponent {
 
   analyseResult$: Observable<Wortfrequenz[]> | null = null;
 
-  constructor(private route: ActivatedRoute, private analyseService: AnalyseApiServiceService) {
+  constructor(private route: ActivatedRoute, private analyseService: AnalyseApiService) {
 
     this.route.queryParams.subscribe(params => {
       const fileName: string = String(params['file']);

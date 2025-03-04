@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Wortfrequenz } from '../models/wortfrequenz.model';
@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
-export class AnalyseApiServiceService {
+export class AnalyseApiService {
   baseUrl: string = environment.apiBaseUrl;
   basePort: string = environment.apiPort;
 

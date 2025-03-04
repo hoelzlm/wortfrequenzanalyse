@@ -1,7 +1,14 @@
 <div id="nav" class="max-w-full flex items-center bg-blue-400 dark:bg-blue-950 min-h-12">
-  <div class="text-x1 font-medium text-blue-950 dark:text-blue-50 p-5"  > Wortfrequenzanalyse </div>
+  <div class="text-x1 font-medium text-blue-950 dark:text-blue-50 p-5"> Wortfrequenzanalyse </div>
 </div>
+<div class="flex flex-col justify-center">
+  <div class="p-6">
+    <router-outlet></router-outlet>
+  </div>
 
-<div class="flex justify-center p-6">
-  <router-outlet></router-outlet>
+  <div *ngIf="(errorMessage$ | async)"
+    class="self-center text-center content-center bg-red-200 border border-red-600 w-xl h-36 rounded-xl">
+    <p class="text-red-600 text-xl">{{(errorMessage$ | async)}}</p>
+    <span class="text-red-600"> reloade page to start again </span>
+  </div>
 </div>

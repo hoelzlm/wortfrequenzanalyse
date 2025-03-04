@@ -35,7 +35,7 @@ public class ApiController {
             return "{\"status\": \"OK\", \"message\": \""+ fileName +" \"}";
         } catch (IOException e) {
             log.error(e.getMessage());
-            return "{\"status\": \"ERROR\", \"message\": \"an error accured during reading of file\"}";
+            return "{\"status\": \"ERROR\", \"message\": \"an error accured during reading of file.\"}";
         }
     }
 }

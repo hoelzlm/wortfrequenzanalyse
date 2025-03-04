@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { AnalyseApiServiceService } from '../../services/analyse-api-service.service';
-import { HttpEventType } from '@angular/common/http';
-import { Wortfrequenz } from '../../models/wortfrequenz.model';
+import { AnalyseApiService } from '../../services/analyse-api.service';
 import { UploadResponseStatus } from '../../models/uploadResponse.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ErrorService } from '../../services/error.service';
 
 @Component({
   selector: 'app-file-upload-component',
@@ -20,7 +19,7 @@ export class FileUploadComponent {
   status: string  = "Upload a file to analyze ..."
   loading: Boolean = false;
 
-  constructor(private router: Router, private analyseService: AnalyseApiServiceService) {}
+  constructor(private router: Router, private analyseService: AnalyseApiService, private errorService: ErrorService) {}
 
   onFileDrop(event: any) {
     event.preventDefault();
@@ -51,6 +50,8 @@ export class FileUploadComponent {
       .subscribe(response => {
         if(response.status == UploadResponseStatus.OK) {
           this.router.navigate(['/result'], {queryParams: {"file": response.message}})
+        } else {
+          this.errorService.setErrorMessage(response.message);
         }
       });
     }
