@@ -5,6 +5,6 @@ import { ResultComponent } from './components/result/result.component';
 export const routes: Routes = [
     { path: "", redirectTo:'/upload', pathMatch: 'full' },
     { path: "upload", component: FileUploadComponent },
-    { path: "result", component: ResultComponent },
+    { path: "result/:id", component: ResultComponent },
     
 ];

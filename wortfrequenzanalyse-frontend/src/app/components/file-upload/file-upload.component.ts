@@ -49,7 +49,7 @@ export class FileUploadComponent {
       this.analyseService.uploadFileToAnalyze(this.file)
       .subscribe(response => {
         if(response.status == UploadResponseStatus.OK) {
-          this.router.navigate(['/result'], {queryParams: {"file": response.message}})
+          this.router.navigate(['/result/', response.message.trim()])
         } else {
           this.errorService.setErrorMessage(response.message);
         }

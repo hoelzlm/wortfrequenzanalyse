@@ -1,6 +1,6 @@
 export interface Wortfrequenz {
     id: number,
-    fileName: string,
+    fileId: number,
     word: string,
     count: number
 }
