@@ -16,11 +16,8 @@ export class ResultComponent {
   analyseResult$: Observable<Wortfrequenz[]> | null = null;
 
   constructor(private route: ActivatedRoute, private analyseService: AnalyseApiService) {
-
-    this.route.queryParams.subscribe(params => {
-      const fileName: string = String(params['file']);
-      this.analyseResult$ = analyseService.getWordfrequentAnalyseByFileName(fileName);
-    })
+    const fileId: number | null = Number(this.route.snapshot?.paramMap?.get("id"));
+    this.analyseResult$ = fileId ? analyseService.getWordfrequentAnalyseByFileName(fileId) : null;
   }
 
 }

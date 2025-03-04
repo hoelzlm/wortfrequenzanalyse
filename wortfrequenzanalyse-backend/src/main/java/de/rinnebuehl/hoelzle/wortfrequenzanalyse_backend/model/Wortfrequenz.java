@@ -8,15 +8,18 @@ import jakarta.persistence.*;
 public class Wortfrequenz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="wf_id")
     private int id;
-    private String fileName;
+
+    @Column(name="file_id")
+    private int fileId;
     private String word;
     private int count;
 
     protected Wortfrequenz() {}
 
-    public Wortfrequenz(String fileName, String word, int count) {
-        this.fileName = fileName;
+    public Wortfrequenz(int fileId, String word, int count) {
+        this.fileId = fileId;
         this.word = word;
         this.count = count;
     }
@@ -29,12 +32,12 @@ public class Wortfrequenz {
         this.id = id;
     }
 
-    public String getFileName() {
-        return fileName;
+    public int getFileName() {
+        return fileId;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFileName(int fileId) {
+        this.fileId = fileId;
     }
 
     public String getWord() {

@@ -1,6 +1,7 @@
 package de.rinnebuehl.hoelzle.wortfrequenzanalyse_backend;
 
 import de.rinnebuehl.hoelzle.wortfrequenzanalyse_backend.controller.ApiController;
+import de.rinnebuehl.hoelzle.wortfrequenzanalyse_backend.model.WFFile;
 import de.rinnebuehl.hoelzle.wortfrequenzanalyse_backend.model.Wortfrequenz;
 import de.rinnebuehl.hoelzle.wortfrequenzanalyse_backend.service.WordFrequentAnalyzeService;
 import org.junit.jupiter.api.Test;
@@ -34,14 +35,13 @@ class WortfrequenzanalyseBackendApplicationTests {
         String content = "This is a test. This test is executed during test of the app";
 
         MockMultipartFile testFile = new MockMultipartFile("file", fileName, MediaType.TEXT_PLAIN_VALUE, content.getBytes());
-        String newFileName = wfaService.analyzeFile(testFile);
+        WFFile file = wfaService.analyzeFile(testFile);
 
         // test if fileName is generated
-        String testFileName = newFileName.split("_")[1];
-        assertThat(fileName).isEqualTo(testFileName);
+        assertThat(fileName).isEqualTo(file.getFileName());
 
         // test if something is written to the database
-        List<Wortfrequenz> wfTest = wfaService.getAnalyzeByFileName(newFileName);
+        List<Wortfrequenz> wfTest = wfaService.getAnalyzeByFileId(file.getId());
         assertThat(wfTest).isNotEmpty();
     }
 }

@@ -15,8 +15,8 @@ export class AnalyseApiService {
   constructor(private http: HttpClient) { }
 
 
-  getWordfrequentAnalyseByFileName(fileName: string): Observable<Wortfrequenz[]> {
-    const url: string = `http://${this.baseUrl}:${this.basePort}/api/v1/result?fileName=${fileName}`
+  getWordfrequentAnalyseByFileName(fileId: number): Observable<Wortfrequenz[]> {
+    const url: string = `http://${this.baseUrl}:${this.basePort}/api/v1/result/${fileId}`
     return this.http.get<Wortfrequenz[]>(url)
   }
 

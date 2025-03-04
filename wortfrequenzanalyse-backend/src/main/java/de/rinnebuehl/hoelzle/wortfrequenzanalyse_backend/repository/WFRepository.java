@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface DatabaseRepository extends CrudRepository<Wortfrequenz, Integer> {
+public interface WFRepository extends CrudRepository<Wortfrequenz, Integer> {
 
-    List<Wortfrequenz> findTop10ByFileNameOrderByCountDesc(String fileName);
+    List<Wortfrequenz> findTop10ByFileIdOrderByCountDesc(int fileId);
 }

@@ -1,5 +1,6 @@
 package de.rinnebuehl.hoelzle.wortfrequenzanalyse_backend.controller;
 
+import de.rinnebuehl.hoelzle.wortfrequenzanalyse_backend.model.WFFile;
 import de.rinnebuehl.hoelzle.wortfrequenzanalyse_backend.model.Wortfrequenz;
 import de.rinnebuehl.hoelzle.wortfrequenzanalyse_backend.service.WordFrequentAnalyzeService;
 import org.slf4j.Logger;
@@ -21,16 +22,16 @@ public class ApiController {
 
     private static final Logger log = LoggerFactory.getLogger(ApiController.class);
 
-    @GetMapping("/result")
-    public List<Wortfrequenz> getAnalyse(@RequestParam(name = "fileName") String fileName) {
-        return wordFrequentAnalyzeService.getAnalyzeByFileName(fileName);
+    @GetMapping("/result/{id}")
+    public List<Wortfrequenz> getAnalyse(@PathVariable int id) {
+        return wordFrequentAnalyzeService.getAnalyzeByFileId(id);
     }
 
     @PostMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file) {
         try {
-            String fileName = this.wordFrequentAnalyzeService.analyzeFile(file);
-            return "{\"status\": \"OK\", \"message\": \""+ fileName +" \"}";
+            WFFile result = this.wordFrequentAnalyzeService.analyzeFile(file);
+            return "{\"status\": \"OK\", \"message\": \""+ result.getId() +" \"}";
         } catch (IOException e) {
             log.error(e.getMessage());
             return "{\"status\": \"ERROR\", \"message\": \"an error accured during reading of file.\"}";
